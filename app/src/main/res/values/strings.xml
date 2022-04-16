@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Bluetooth</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="devices">Devices</string>
+    <string name="controller">Controller</string>
+    <string name="notSupported">Device does not support Bluetooth</string>
+    <string name="disabled">Bluetooth is disabled</string>
+    <string name="notFound">No bluetooth devices found</string>
+    <string name="noBlueSupport">NO BLUETOOTH SUPPORT AVAILABLE ON YOUR DEVICE</string>
+    <string name="bluetooth_devices">Bonded Devices:</string>
+    <string name="reload">Reload</string>
+</resources>
