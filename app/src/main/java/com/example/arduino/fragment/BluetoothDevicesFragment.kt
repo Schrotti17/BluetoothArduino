@@ -3,12 +3,9 @@ package com.example.arduino.fragment
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
-import android.bluetooth.BluetoothSocket
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,11 +15,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arduino.BluetoothViewModel
-import com.example.arduino.ConnectDevice
 import com.example.arduino.R
 import com.example.arduino.databinding.FragmentBluetoothBinding
-import java.io.IOException
-import java.util.UUID
 import kotlin.collections.ArrayList
 
 
@@ -30,6 +24,12 @@ class BluetoothDevicesFragment(context: Context) : Fragment() {
 
     interface Callbacks{
         fun onBluetoothDeviceSelected(address: String)
+
+        //fun updateUI()
+
+        //in connectDevice
+        //fun cancelConnection()
+
     }
     private var _binding: FragmentBluetoothBinding? = null
     private val binding get() = _binding!!
@@ -58,7 +58,7 @@ class BluetoothDevicesFragment(context: Context) : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentBluetoothBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -127,7 +127,7 @@ class BluetoothDevicesFragment(context: Context) : Fragment() {
         //Collections.sort(listItems, BluetoothDevicesFragment::compareTwoDevices)
     }
 
-    private fun compareTwoDevices(a: BluetoothDevice, b: BluetoothDevice): Int {
+    /*private fun compareTwoDevices(a: BluetoothDevice, b: BluetoothDevice): Int {
         val aValid: Boolean = a.name !=null && a.address.isNotEmpty()
         val bValid: Boolean = b.name !=null && b.address.isNotEmpty()
         if(aValid && bValid){
@@ -138,7 +138,7 @@ class BluetoothDevicesFragment(context: Context) : Fragment() {
         if(aValid) return -1
         if(bValid) return +1
         return a.address.compareTo(b.address)
-    }
+    }*/
 }
 
 /*override fun onResume() {

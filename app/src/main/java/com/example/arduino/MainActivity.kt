@@ -4,15 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.View
+import androidx.activity.viewModels
 import com.example.arduino.R.menu.menu_devices
 import com.example.arduino.fragment.BluetoothDevicesFragment
 import com.example.arduino.fragment.ControllerFragment
-import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(),
     BluetoothDevicesFragment.Callbacks {
 
+    private val viewModel: BluetoothViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,11 +36,10 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onBluetoothDeviceSelected(address: String) {
-        val contextView = findViewById<View>(R.id.test)
-        Snackbar.make(contextView, "$address connecting...", Snackbar.LENGTH_LONG).show()
-        val bltObject = ConnectDevice(address)
+        val bltObject = ConnectDevice(this, address, viewModel)
+
         bltObject.run()
-        if(connectSuccess){
+        if(viewModel.isConnected){
             val args = Bundle().apply {
                 putSerializable("bluetooth_object", bltObject)
             }
