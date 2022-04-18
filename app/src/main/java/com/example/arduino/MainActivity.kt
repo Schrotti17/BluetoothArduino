@@ -1,22 +1,27 @@
 package com.example.arduino
 
+import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import androidx.activity.viewModels
 import com.example.arduino.R.menu.menu_devices
 import com.example.arduino.fragment.BluetoothDevicesFragment
 import com.example.arduino.fragment.ControllerFragment
+import java.io.IOException
 
 class MainActivity : AppCompatActivity(),
-    BluetoothDevicesFragment.Callbacks {
+    BluetoothDevicesFragment.Callbacks,
+    ControllerFragment.Callbacks
+{
 
     private val viewModel: BluetoothViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         val currentFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container)
 
@@ -40,18 +45,22 @@ class MainActivity : AppCompatActivity(),
 
         bltObject.run()
         if(viewModel.isConnected){
-            val args = Bundle().apply {
-                putSerializable("bluetooth_object", bltObject)
-            }
-            val fragment = ControllerFragment().apply {
-                arguments = args
-            }
+            val fragment = ControllerFragment()
 
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .addToBackStack(null)
                 .commit()
+        }
+    }
+
+    override fun write(message: String) {
+        viewModel.setupTransfer()
+        try{
+            viewModel.outa.write(message.toByteArray())
+        } catch(e: IOException) {
+            Log.e(TAG, "Error occurred when sending data", e)
         }
     }
 }
