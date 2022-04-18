@@ -14,6 +14,7 @@ class ControllerFragment : Fragment(), Serializable{
 
     interface Callbacks{
         fun write(message: String)
+        //fun cancelConnection() //Implementation missing!
     }
 
     private var _binding: FragmentControllerBinding? = null

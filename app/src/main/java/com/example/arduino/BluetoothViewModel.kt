@@ -14,9 +14,8 @@ class BluetoothViewModel: ViewModel() {
     private val _myUUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
     private var _isConnected: Boolean = true
     private var _bluetoothSocket: BluetoothSocket? = null
-    private lateinit var mmInStream: InputStream
     private lateinit var mmOutStream: OutputStream
-    private val _listItems = ArrayList<BluetoothDevice>()
+    private var _listItems = ArrayList<BluetoothDevice>()
     private var _pairedDevices: Set<BluetoothDevice>? = null
 
     fun getPairedDevices(bt: BluetoothAdapter?){
@@ -43,12 +42,14 @@ class BluetoothViewModel: ViewModel() {
         _listItems.add(bt)
     }
     fun setupTransfer(){
-        mmInStream = bluetoothSocket!!.inputStream
         mmOutStream = bluetoothSocket!!.outputStream
     }
 
-    val ina: InputStream
-        get() = mmInStream
+    fun sortCollection(){
+        _listItems.sortWith(
+            compareBy { it.name }
+        )
+    }
 
     val outa: OutputStream
         get() = mmOutStream

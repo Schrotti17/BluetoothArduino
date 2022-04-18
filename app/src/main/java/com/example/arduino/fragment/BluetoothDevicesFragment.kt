@@ -19,17 +19,11 @@ import com.example.arduino.R
 import com.example.arduino.databinding.FragmentBluetoothBinding
 import kotlin.collections.ArrayList
 
-
 class BluetoothDevicesFragment(context: Context) : Fragment() {
 
     interface Callbacks{
         fun onBluetoothDeviceSelected(address: String)
-
-        //fun updateUI()
-
-        //in connectDevice
-        //fun cancelConnection()
-
+        //fun updateUI() Implementation missing!
     }
     private var _binding: FragmentBluetoothBinding? = null
     private val binding get() = _binding!!
@@ -124,21 +118,8 @@ class BluetoothDevicesFragment(context: Context) : Fragment() {
                 }
             }
         }
-        //Collections.sort(listItems, BluetoothDevicesFragment::compareTwoDevices)
+        viewModel.sortCollection()
     }
-
-    /*private fun compareTwoDevices(a: BluetoothDevice, b: BluetoothDevice): Int {
-        val aValid: Boolean = a.name !=null && a.address.isNotEmpty()
-        val bValid: Boolean = b.name !=null && b.address.isNotEmpty()
-        if(aValid && bValid){
-            val ret = a.name.compareTo(b.name)
-            if(ret != 0) return ret
-            return a.address.compareTo(b.address)
-        }
-        if(aValid) return -1
-        if(bValid) return +1
-        return a.address.compareTo(b.address)
-    }*/
 }
 
 /*override fun onResume() {
