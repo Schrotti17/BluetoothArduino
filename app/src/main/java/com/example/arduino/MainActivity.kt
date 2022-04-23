@@ -4,10 +4,7 @@ import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
 import androidx.activity.viewModels
-import com.example.arduino.R.menu.menu_devices
 import com.example.arduino.fragment.BluetoothDevicesFragment
 import com.example.arduino.fragment.ControllerFragment
 import java.io.IOException
@@ -32,12 +29,6 @@ class MainActivity : AppCompatActivity(),
                 .add(R.id.fragment_container, fragment)
                 .commit()
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater: MenuInflater = menuInflater
-        inflater.inflate(menu_devices, menu)
-        return true
     }
 
     override fun onBluetoothDeviceSelected(address: String) {
